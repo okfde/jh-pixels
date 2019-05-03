@@ -2,8 +2,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
 
   Vue.component('canvas-item', {
-    props: ['grid', 'gridSize', 'gridNum', 'width', 'height'],
-    //context: undefined,
+    props: ['grid', 'gridSize', 'gridNum', 'width', 'height', 'context'],
     data: function() {
       return {
         context: undefined
@@ -25,14 +24,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
       },
       drawPixels: function () {
-        //console.log(this.grid[0][0])
-        //debugger
-        console.log('get pixels from somewhere and draw them');
         this.grid.forEach((val, i) => {
           val.forEach((val2, j) => {
-          //for (let j = 0; j < this.gridNum; j++) {
             if (val2.color !== undefined) {
-              //debugger
               this.context.fillStyle = val2.color;
               this.context.fillRect(i *  70, j * 70,
                                     70, 70);
@@ -44,7 +38,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
         this.context.clearRect(0, 0, 770, 770);
         this.drawGrid();
         this.drawPixels();
-        //console.log(this.grid)
         window.requestAnimationFrame(() => { this.frame(); })
       }
     },
@@ -52,7 +45,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
       this.context = this.$el.getContext('2d');
       this.drawGrid();
       this.frame();
-      //this.anim = window.requestAnimationFrame(this.frame)
     }
   })
 
@@ -113,20 +105,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.grid[i].push({color: undefined})
           }
         }
-        //console.log(this.grid);
       },
       checkPixel: function(ev) {
         var gridX = Math.floor(ev.offsetX / this.gridSize);
         var gridY = Math.floor(ev.offsetY / this.gridSize);
-        var interim = this.grid;
-        interim[gridX][gridY].color = this.currentColor;
-        this.grid = interim;
-
-        //console.log(this.grid)
+        this.grid[gridX][gridY].color = this.currentColor;
       },
       changeColor: function(ev) {
         this.currentColor = ev.target.style.backgroundColor;
         console.log(this.currentColor)
+      },
+      downloadPic: function(ev) {
+        //debugger
       }
     },
     created: function() {

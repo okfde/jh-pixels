@@ -19,12 +19,15 @@
                   v-on:click="changeColor"
                   class="palette"></span>
           </li>
-          </ul>
+        </ul>
+        <div>
+          <button v-on:click="downloadPic">Download as PNG</button>
+        </div>
+        <canvas-item v-bind:gridSize="gridSize"
+                     v-bind:gridNum="gridNum"
+                     v-bind:grid="grid"
+                     v-on:check-pixel="checkPixel"></canvas-item>
 
-          <canvas-item v-bind:gridSize="gridSize"
-                       v-bind:gridNum="gridNum"
-                       v-bind:grid="grid"
-                       v-on:check-pixel="checkPixel"></canvas-item>
       </div>
     </div>
   </body>
