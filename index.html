@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>JH PIXELS</title>
+    <link href="main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>JH Pixels</h1>
+    <div id="app">
+      {{ message }}
+
+      <div class="layout">
+        <ul>
+          <li v-for="color in colors">
+            <span>{{ color.name }}<br>{{ color.style.backgroundColor }}</span>
+            <span v-bind:style="color.style"  class="palette"></span>
+          </li>
+        </ul>
+
+        <canvas-item v-bind:grid="gridNum" v-on:check-pixel="checkPixel"></canvas-item>
+      </div>
+    </div>
+  </body>
+</html>

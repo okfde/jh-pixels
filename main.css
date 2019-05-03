@@ -1,0 +1,29 @@
+body {
+  background-color: #eee;
+}
+
+
+.palette {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  box-shadow: 0px 1px 1px #000;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 12%;
+  justify-content: space-evenly;
+}
+
+canvas {
+  box-shadow: 0px 1px 1px #000;
+  align-self: start;
+}
+
+.layout {
+  display: flex;
+  justify-content: space-evenly;
+}
