@@ -16,11 +16,16 @@
         <ul>
           <li v-for="color in colors">
             <span>{{ color.name }}<br>{{ color.style.backgroundColor }}</span>
-            <span v-bind:style="color.style"  class="palette"></span>
+            <span v-bind:style="color.style"
+                  v-on:click="changeColor"
+                  class="palette"></span>
           </li>
-        </ul>
+          </ul>
 
-        <canvas-item v-bind:grid="gridNum" v-on:check-pixel="checkPixel"></canvas-item>
+          <canvas-item v-bind:gridSize="gridSize"
+                       v-bind:gridNum="gridNum"
+                       v-bind:grid="grid"
+                       v-on:check-pixel="checkPixel"></canvas-item>
       </div>
     </div>
   </body>
