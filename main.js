@@ -3,8 +3,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
   Vue.component('canvas-item', {
     props: ['grid', 'gridSize', 'gridNum', 'width', 'height'],
-    context: undefined,
-    anim: undefined,
+    //context: undefined,
+    data: function() {
+      return {
+        context: undefined
+      }
+    },
     template: `<canvas width="770px" height="770px" @click="$emit('check-pixel', $event)"></canvas>`,
     methods: {
       drawGrid: function () {
@@ -24,22 +28,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
         //console.log(this.grid[0][0])
         //debugger
         console.log('get pixels from somewhere and draw them');
-        for (let i = 0; i < this.gridNum; i++) {
-          for (let j = 0; j < this.gridNum; j++) {
-            if (this.$root.$data.grid[i][j].color !== undefined) {
-              debugger
-              this.fillStyle = this.$root.$data.grid[i][j].color;
-              this.context.fillRect(i *  this.gridSize, j * this.gridSize,
-                                    this.gridSize, this.gridSize);
+        this.grid.forEach((val, i) => {
+          val.forEach((val2, j) => {
+          //for (let j = 0; j < this.gridNum; j++) {
+            if (val2.color !== undefined) {
+              //debugger
+              this.context.fillStyle = val2.color;
+              this.context.fillRect(i *  70, j * 70,
+                                    70, 70);
             }
-          }
-        }
+          })
+        })
       },
       frame: function (dt) {
+        this.context.clearRect(0, 0, 770, 770);
         this.drawGrid();
         this.drawPixels();
         //console.log(this.grid)
-        //window.requestAnimationFrame(this.frame)
+        window.requestAnimationFrame(() => { this.frame(); })
       }
     },
     mounted: function () {
@@ -53,7 +59,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
   var app = new Vue({
     el: '#app',
     data: {
-      message: 'Hello Vue!',
       currentColor: '#e52420',
       gridNum: 11,
       gridSize: 70,
@@ -67,7 +72,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
          style: {
            backgroundColor: '#ea680c'
          }},
-          <canvas v-on:click="checkPixel" width="770px" height="770px"></canvas>
         {name: 'deep yellow',
          style: {
            backgroundColor: '#ffd003'
@@ -121,7 +125,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         //console.log(this.grid)
       },
       changeColor: function(ev) {
-        this.currentColor = ev.target.styleBackgroundColor;
+        this.currentColor = ev.target.style.backgroundColor;
         console.log(this.currentColor)
       }
     },
